@@ -1,13 +1,16 @@
 package model;
 
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import observer.Observable;
+
 // Die Klasse realisiert einen Ticker, der alle 100 Millisekunden seinen internen
-// Zähler hochzählt.
-// Das Zählen kann gestartet und gestoppt werden. Weiter kann der interne
-// Zähler zurückgesetzt werden
-public class Ticker
+// Zï¿½hler hochzï¿½hlt.
+// Das Zï¿½hlen kann gestartet und gestoppt werden. Weiter kann der interne
+// Zï¿½hler zurï¿½ckgesetzt werden
+public class Ticker extends Observable<Ticker>
 {
   private AtomicInteger counter = new AtomicInteger(0);
   private Thread workerThread = null;
@@ -19,7 +22,7 @@ public class Ticker
 
   public void start()
   {
-    // Ignoriere start-Befehl, falls Thread noch läuft
+    // Ignoriere start-Befehl, falls Thread noch lï¿½uft
     if( this.workerThread != null && this.workerThread.isAlive() )
       return;
     
@@ -33,6 +36,7 @@ public class Ticker
           while (Ticker.this.workerThread.isInterrupted() == false )
           {
             Ticker.this.counter.incrementAndGet();
+            notifyObservers(Ticker.this);
             TimeUnit.MILLISECONDS.sleep(100);
           }
         }
@@ -49,6 +53,7 @@ public class Ticker
     if (workerThread != null)
     {
       this.workerThread.interrupt();
+      notifyObservers(Ticker.this);
     }
   }
 
@@ -56,6 +61,7 @@ public class Ticker
   {
     this.stop();
     this.counter.set(0);
+    notifyObservers(Ticker.this);
   }
   
   public int getValue()

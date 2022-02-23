@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-public class JTickerDisplay extends JFrame
+import model.Ticker;
+import observer.Observer;
+
+public class JTickerDisplay extends JFrame implements Observer<Ticker>
 {
   private static final long serialVersionUID = -631034923132906745L;
   
@@ -50,5 +53,10 @@ public class JTickerDisplay extends JFrame
   public void registerActionListenerOnResetButton(ActionListener listener)
   {
     this.buttonPanel.getResetButton().addActionListener(listener);
+  }
+
+  @Override
+  public void update(Ticker t) {
+   setDisplay(t.getValue());    
   }
 }
