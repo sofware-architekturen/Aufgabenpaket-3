@@ -4,13 +4,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 // Die Klasse realisiert einen Ticker, der alle 100 Millisekunden seinen internen
-// Zähler hochzählt.
-// Das Zählen kann gestartet und gestoppt werden. Weiter kann der interne
-// Zähler zurückgesetzt werden
+// Zï¿½hler hochzï¿½hlt.
+// Das Zï¿½hlen kann gestartet und gestoppt werden. Weiter kann der interne
+// Zï¿½hler zurï¿½ckgesetzt werden
 public class Ticker
 {
-  private AtomicInteger counter = new AtomicInteger(0);
-  private Thread workerThread = null;
+  protected AtomicInteger counter = new AtomicInteger(0);
+  protected Thread workerThread = null;
 
   public Ticker()
   {
@@ -19,7 +19,7 @@ public class Ticker
 
   public void start()
   {
-    // Ignoriere start-Befehl, falls Thread noch läuft
+    // Ignoriere start-Befehl, falls Thread noch lï¿½uft
     if( this.workerThread != null && this.workerThread.isAlive() )
       return;
     
