@@ -1,9 +1,6 @@
 package _test;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import controller.Console;
 import controller.TickerController;
 import model.Ticker;
